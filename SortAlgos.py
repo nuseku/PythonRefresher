@@ -1,5 +1,5 @@
 
-
+import random
 
 def bubblesort(list):
   for i in range(len(list)):
@@ -36,7 +36,7 @@ def quicksort(list):
   return Lpoint + [point] + Lpoint
 
 
-def insertion_sort(list):
+def insertionsort(list):
   # iterate through the list
   for i in range(1, len(list)):
     # store the current element
@@ -54,7 +54,7 @@ def insertion_sort(list):
   return list
 
 
-def selection_sort(list):
+def selectionsort(list):
   # iterate through the list
   for i in range(len(list)):
     # store the current element
@@ -72,43 +72,66 @@ def selection_sort(list):
   # return the sorted list
   return list
 
-def mergesort(list):
-  # if the length of the list is 0 or 1, the list is already sorted
-  if len(list) <= 1:
-    return list
+def mergesort(arr):
+  if len(arr) <= 1:
+    return arr
   
-  # divide the list in half
-  center = len(list) // 2
-  L = list[:center]
-  R = list[center:]
+  # divide the list into two halves
+  middle = len(arr) // 2
+  left = arr[:middle]
+  right = arr[middle:]
   
-  # sort the L and R halves of the list using the mergesort function
-  L = mergesort(L)
-  R = mergesort(R)
+  # sort each half recursively
+  left = merge_sort(left)
+  right = merge_sort(right)
   
-  # initialize empty lists for storing the merged list
-  sorted_list = []
-  L_index = 0
-  R_index = 0
+  # merge the sorted halves back together
+  return merge(left, right)
+
+def merge(left, right):
+  result = []
   
-  # iterate through the L and R halves of the list, and merge the
-  # elements in sorted order into the sorted_list list
-  while L_index < len(L) and R_index < len(R):
-    if L[L_index] < R[R_index]:
-      sorted_list.append(L[L_index])
-      L_index += 1
+  # keep track of the current position in each list
+  left_index = 0
+  right_index = 0
+  
+  # compare the elements at the current position in each list
+  # and append the smaller element to the result
+  while left_index < len(left) and right_index < len(right):
+    if left[left_index] < right[right_index]:
+      result.append(left[left_index])
+      left_index += 1
     else:
-      sorted_list.append(R[R_index])
-      R_index += 1
-      
-  # add any remaining elements from the L or R
+      result.append(right[right_index])
+      right_index += 1
+  
+  # append any remaining elements in the left list
+  result.extend(left[left_index:])
+  
+  # append any remaining elements in the right list
+  result.extend(right[right_index:])
+  
+  return result
 
 
-list = [5, 1, 3, 2, 4]
-sorted_list = bubblesort(list)
-print(sorted_list) 
 
-list2 = [67, 90 , 23, 12 , 13 , 13, 2, 3,1, 3]
-sorted_list2 = quicksort(list2)
-print(sorted_list2) 
+nuray = [random.randint(0, 99) for _ in range(100)]
+mergesort(biglist)
+print(biglist)
+todd = [16, 11, 6, 19, 4, 18, 14, 10, 7, 9, 15, 5, 2, 20, 3, 12, 1, 17, 13, 8]
+bubblesort(todd)
+print(todd)
+abuziddin= [3, 8, 17, 7, 19, 10, 11, 12, 5, 1, 2, 20, 16, 15, 4, 9, 14, 13, 18, 6]
+insertionsort(abuziddin)
+print(abuziddin)
+fehmi= [6, 19, 8, 16, 7, 4, 15, 5, 13, 1, 11, 18, 17, 20, 3, 2, 9, 10, 12, 14]
+quicksort(fehmi)
+print(fehmi)
+alan= [17, 5, 7, 16, 15, 2, 6, 3, 1, 18, 19, 11, 8, 20, 9, 4, 13, 10, 14, 12]
+selectionsort(alan)
+print(alan)
+
+
+
+
 
